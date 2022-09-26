@@ -2,6 +2,7 @@ const url = "http://localhost:3000/todos";
 const dashboard = document.querySelector(".dashboard");
 const submit = document.querySelector(".submit-button");
 const inputBar = document.querySelector(".input-field");
+const inputForm = document.querySelector(".input-form");
 
 const fetchTodos = fetch(url)
 .then(res=>res.json())
@@ -27,6 +28,41 @@ function getTodos(){
         }).join("");
         dashboard.innerHTML = todoData;})};
         getTodos();
+
+        // handling inputs
+function handleInput(e){
+    e.preventDefault();
+    inputBar.value = e.target.value;
+}
+inputBar.addEventListener("input", handleInput);
+
+
+// handle submit
+function createTodo(){
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: inputBar.value, completed:false})
+    };
+    fetch(url, requestOptions)
+    .then(fetch(url)
+    .then(res=>res.json()
+    .then(
+        data=>console.log(data)
+    ))
+    );
+}
+
+function handleSubmit(e){
+    e.preventDefault();
+    createTodo()
+}
+
+inputForm.addEventListener("submit", handleSubmit);
+
+
+
+
 
 
 
