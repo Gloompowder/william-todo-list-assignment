@@ -22,7 +22,7 @@ function getTodos(){
             <div/>
             <input onclick="handleDelete(${todo.id})" class = "delete-button" type ="button" value = "trash">
             </form>`
-            :`<form onClick="handleComplete(${todo.id})" key=${todo.id} class="todo-item">
+            :`<form onClick="divToForm(${todo.id})" key=${todo.id} class="todo-item">
             <div  class="todo-item-text">${todo.title} 
             <div/>
             <input onclick="handleUpdate(${todo.id})" class="edit" type ="submit" value="edit">
@@ -50,8 +50,8 @@ function createTodo(){
     };
     fetch(url, requestOptions)
     .then(res=>res.json())
-    .then(data=>todoArr<<(data.join("")))
-    .then(dashboard.innerHTML = todoArr);
+    .then(data=>todoArr+=(data))
+    .then(dashboard.innerHTML=todoArr);
 }
 
 function handleSubmit(e){
@@ -86,18 +86,31 @@ function handleComplete(id){
     .then(getTodos());
     };
     
-// PUT edit task call
+// editing title process
 
-// function handlePost(id, changes){
-//     const requestOptions = {
-//         method: 'POST',
-//         headers: { 'Content-Type': 'application/json' },
-//         body: JSON.stringify({ title: changes})
-//     };
-//     fetch(url+`/${id}`, requestOptions)
-//     .then(res=>res.json())
-//     .then(data=>console.log(data, `id at : ${id} completed.`));
-//     };
+// div changed to text input 
+function divToForm(){
+    console.log("div to form")
+};
+
+// input value saved
+function handleTaskRename(){
+    console.log("type in the form")
+};
+
+// fetch post request
+function handleUpdate(id, changes){
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title: changes})
+    };
+    fetch(url+`/${id}`, requestOptions)
+    .then(res=>res.json())
+    .then(data=>console.log(data, `id at : ${id} completed.`));
+    };
+
+
 
 
 
