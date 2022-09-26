@@ -17,13 +17,13 @@ function getTodos(){
     .then(data=>{
         const todoData = data.map(todo=>{
             return todo.completed ?
-            `<form key=${todo.id} class="todo-item">
-            <div class="todo-item-text">${todo.title}
+            `<form key=${todo.id} class="todo-item" >
+            <div class="completed-task">${todo.title}
             <div/>
             <input onclick="handleDelete(${todo.id})" class = "delete-button" type ="button" value = "trash">
             </form>`
-            :`<form key=${todo.id} class="todo-item">
-            <div class="todo-item-text">${todo.title}
+            :`<form onClick="handleComplete(${todo.id})" key=${todo.id} class="todo-item">
+            <div  class="todo-item-text">${todo.title} 
             <div/>
             <input onclick="handleUpdate(${todo.id})" class="edit" type ="submit" value="edit">
             <input onclick="handleDelete(${todo.id})" class="delete" type ="button" value = "trash">
@@ -68,12 +68,13 @@ function handleDelete(id){
 
 fetch(url+`/${id}`, { method: 'DELETE' })
     .then(() => console.log(`id at : ${id} deleted.`))
+    .then(getTodos());
 };
 
 
 // POST completed call 
 
-function handlePost(id){
+function handleComplete(id){
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -81,7 +82,8 @@ function handlePost(id){
     };
     fetch(url+`/${id}`, requestOptions)
     .then(res=>res.json())
-    .then(data=>console.log(data, `id at : ${id} completed.`));
+    .then(data=>console.log(data, `id at : ${id} completed.`))
+    .then(getTodos());
     };
     
 // PUT edit task call
