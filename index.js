@@ -20,7 +20,7 @@ function getTodos(){
             `<form key=${todo.id} class="todo-item" >
             <div class="completed-task">${todo.title}
             <div/>
-            <input onclick="handleDelete(${todo.id})" class = "delete-button" type ="button" value = "trash">
+            <input onclick="handleDelete(${todo.id})" class = "delete" type ="button" value = "trash">
             </form>`
             :`<form onClick="divToForm(${todo.id})" key=${todo.id} class="todo-item">
             <div  class="todo-item-text">${todo.title} 
@@ -30,7 +30,9 @@ function getTodos(){
             </form>`
         }).join("");
     todoArr = todoData;
-    dashboard.innerHTML = todoArr;})};
+    dashboard.innerHTML = todoArr;
+    });
+};
 getTodos();
 
         // handling inputs
@@ -89,8 +91,8 @@ function handleComplete(id){
 // editing title process
 
 // div changed to text input 
+
 function divToForm(){
-    console.log("div to form")
 };
 
 // input value saved
@@ -108,7 +110,7 @@ function handleUpdate(id, changes){
     fetch(url+`/${id}`, requestOptions)
     .then(res=>res.json())
     .then(data=>console.log(data, `id at : ${id} completed.`));
-    };
+};
 
 
 
